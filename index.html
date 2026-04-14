@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kim's Electrical & Plumbing – Los Angeles</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --bg:#0d0d0d;
+  --surface:#141414;
+  --surface2:#1a1a1a;
+  --yellow:#f5c400;
+  --yellow2:#ffe066;
+  --white:#f0ede8;
+  --gray:#5a5a5a;
+  --border:rgba(245,196,0,0.15);
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:'Barlow',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* NOISE OVERLAY */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1000;opacity:0.4;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:1.2rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(245,196,0,0.08);
+  background:rgba(13,13,13,0.92);
+  backdrop-filter:blur(12px);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;letter-spacing:0.08em;
+  color:var(--white);
+  display:flex;align-items:center;gap:0.5rem;
+}
+.nav-logo .bolt{color:var(--yellow);font-size:1.1rem;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.78rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(240,237,232,0.45);text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--yellow);}
+.nav-cta{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.78rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--bg);background:var(--yellow);
+  padding:0.65rem 1.6rem;text-decoration:none;
+  transition:all 0.2s;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.nav-cta:hover{background:var(--yellow2);transform:translateY(-1px);}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  padding:8rem 3rem 4rem;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 80% 50%, rgba(245,196,0,0.04) 0%, transparent 70%),
+    repeating-linear-gradient(90deg, transparent 0px, transparent 79px, rgba(245,196,0,0.025) 80px),
+    repeating-linear-gradient(0deg, transparent 0px, transparent 79px, rgba(245,196,0,0.025) 80px);
+}
+/* Big background text */
+.hero-bg-text{
+  position:absolute;
+  right:-2rem;top:50%;transform:translateY(-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28vw;letter-spacing:-0.02em;
+  color:rgba(245,196,0,0.025);
+  line-height:0.85;
+  pointer-events:none;user-select:none;
+  white-space:nowrap;
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;width:100%;
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center;
+}
+.hero-eyebrow{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.72rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--yellow);
+  display:flex;align-items:center;gap:0.8rem;
+  margin-bottom:1.5rem;
+  animation:fadeUp 0.5s ease both;
+}
+.hero-eyebrow::before{content:'';width:2rem;height:1px;background:var(--yellow);}
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,10vw,9rem);
+  line-height:0.88;
+  letter-spacing:0.02em;
+  margin-bottom:2rem;
+  animation:fadeUp 0.5s 0.1s ease both;
+}
+.hero-h1 .line2{
+  color:var(--yellow);
+  -webkit-text-stroke:0px;
+}
+.hero-h1 .line3{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(240,237,232,0.3);
+}
+.hero-desc{
+  font-size:1rem;line-height:1.75;
+  color:rgba(240,237,232,0.55);
+  max-width:420px;margin-bottom:2.5rem;
+  animation:fadeUp 0.5s 0.2s ease both;
+}
+.hero-btns{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:fadeUp 0.5s 0.3s ease both;
+}
+.btn-yellow{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--bg);background:var(--yellow);
+  padding:1rem 2.2rem;text-decoration:none;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  transition:all 0.2s;display:inline-block;
+}
+.btn-yellow:hover{background:var(--yellow2);transform:translateY(-2px);}
+.btn-ghost{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.85rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(240,237,232,0.6);
+  border:1px solid rgba(240,237,232,0.15);
+  padding:1rem 2.2rem;text-decoration:none;
+  transition:all 0.2s;display:inline-block;
+}
+.btn-ghost:hover{color:var(--white);border-color:rgba(240,237,232,0.4);}
+
+/* HERO RIGHT - STATS PANEL */
+.hero-panel{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:2rem;
+  position:relative;
+  animation:fadeUp 0.6s 0.15s ease both;
+}
+.hero-panel::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--yellow),transparent);
+}
+.panel-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--yellow);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.panel-title::before{content:'●';font-size:0.4rem;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+.panel-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.panel-stat{
+  background:var(--surface);padding:1.4rem 1.2rem;
+}
+.panel-stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.8rem;letter-spacing:0.02em;
+  color:var(--yellow);line-height:1;
+  margin-bottom:0.3rem;
+}
+.panel-stat-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(240,237,232,0.35);
+}
+.panel-divider{height:1px;background:var(--border);margin:1.5rem 0;}
+.panel-services{display:flex;flex-direction:column;gap:0.7rem;}
+.panel-svc{
+  display:flex;align-items:center;gap:0.8rem;
+  font-size:0.88rem;color:rgba(240,237,232,0.65);
+}
+.panel-svc::before{
+  content:'⚡';font-size:0.7rem;color:var(--yellow);flex-shrink:0;
+}
+
+/* MARQUEE */
+.marquee{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+  padding:0.9rem 0;overflow:hidden;
+  white-space:nowrap;
+}
+.marquee-track{
+  display:inline-flex;
+  animation:marquee 25s linear infinite;
+}
+.marquee-item{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1rem;letter-spacing:0.15em;
+  color:rgba(240,237,232,0.25);
+  padding:0 2rem;
+}
+.marquee-item.accent{color:var(--yellow);}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SERVICES */
+.services-section{
+  padding:7rem 3rem;
+  max-width:1100px;margin:0 auto;
+}
+.section-header{
+  display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+  align-items:end;margin-bottom:4rem;
+}
+.section-tag{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--yellow);margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.section-tag::before{content:'';width:1.5rem;height:1px;background:var(--yellow);}
+.section-h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  line-height:0.9;letter-spacing:0.02em;
+}
+.section-sub{
+  font-size:0.9rem;line-height:1.7;
+  color:rgba(240,237,232,0.45);
+  align-self:end;
+}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+}
+.svc-card{
+  background:var(--bg);
+  padding:2.5rem 2rem;
+  position:relative;overflow:hidden;
+  transition:background 0.3s;
+}
+.svc-card:hover{background:var(--surface);}
+.svc-card::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--yellow);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s ease;
+}
+.svc-card:hover::after{transform:scaleX(1);}
+.svc-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3.5rem;letter-spacing:0.02em;
+  color:rgba(245,196,0,0.08);
+  line-height:1;margin-bottom:0.5rem;
+  transition:color 0.3s;
+}
+.svc-card:hover .svc-num{color:rgba(245,196,0,0.15);}
+.svc-icon{font-size:1.5rem;margin-bottom:1rem;}
+.svc-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+  margin-bottom:0.6rem;
+}
+.svc-desc{
+  font-size:0.83rem;line-height:1.65;
+  color:rgba(240,237,232,0.45);
+}
+
+/* DIAGONAL DIVIDER */
+.diag{
+  height:120px;
+  background:var(--surface);
+  clip-path:polygon(0 0,100% 40%,100% 100%,0 100%);
+  margin-top:-1px;
+}
+
+/* WHY */
+.why-section{
+  background:var(--surface);
+  padding:7rem 3rem;
+}
+.why-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+}
+.why-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:0;}
+.why-item{
+  display:grid;grid-template-columns:3rem 1fr;gap:1rem;
+  align-items:start;
+  padding:1.2rem 0;
+  border-bottom:1px solid rgba(245,196,0,0.08);
+}
+.why-item:last-child{border-bottom:none;}
+.why-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;color:var(--yellow);
+  opacity:0.4;line-height:1.2;
+}
+.why-text{
+  font-size:0.9rem;line-height:1.6;
+  color:rgba(240,237,232,0.65);
+  padding-top:0.2rem;
+}
+.why-right{position:relative;}
+.big-number{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16rem;line-height:1;
+  color:rgba(245,196,0,0.05);
+  position:absolute;top:-3rem;right:-2rem;
+  pointer-events:none;user-select:none;
+}
+.hours-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  padding:2rem;
+  position:relative;z-index:2;
+}
+.hours-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--yellow);
+}
+.hours-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;letter-spacing:0.05em;
+  margin-bottom:1.5rem;
+}
+.hours-table{width:100%;border-collapse:collapse;}
+.hours-table tr{border-bottom:1px solid rgba(245,196,0,0.06);}
+.hours-table tr:last-child{border-bottom:none;}
+.hours-table td{padding:0.7rem 0;font-size:0.88rem;}
+.hours-table td:first-child{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
+  color:rgba(240,237,232,0.4);
+  width:40%;
+}
+.hours-table td:last-child{text-align:right;color:var(--white);}
+.phone-strip{
+  margin-top:1.5rem;
+  background:var(--yellow);
+  padding:1rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%);
+}
+.phone-strip-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(0,0,0,0.5);
+}
+.phone-strip-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;letter-spacing:0.05em;
+  color:var(--bg);
+}
+
+/* REVIEWS */
+.reviews-section{
+  padding:7rem 3rem;
+  max-width:1100px;margin:0 auto;
+}
+.reviews-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  margin-top:3rem;
+}
+.review-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:2rem;
+  position:relative;overflow:hidden;
+  transition:border-color 0.2s;
+}
+.review-card:hover{border-color:rgba(245,196,0,0.35);}
+.review-quote{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:4rem;color:rgba(245,196,0,0.1);
+  line-height:1;margin-bottom:0.5rem;
+}
+.review-text{
+  font-size:0.88rem;line-height:1.75;
+  color:rgba(240,237,232,0.6);
+  font-style:italic;margin-bottom:1.5rem;
+}
+.review-stars{color:var(--yellow);font-size:0.75rem;margin-bottom:0.3rem;letter-spacing:0.1em;}
+.review-author{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(240,237,232,0.3);
+}
+
+/* CTA SECTION */
+.cta-section{
+  background:var(--yellow);
+  padding:5rem 3rem;
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'CALL NOW';
+  position:absolute;right:-2rem;top:50%;transform:translateY(-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18vw;letter-spacing:-0.02em;
+  color:rgba(0,0,0,0.06);
+  pointer-events:none;white-space:nowrap;
+}
+.cta-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:3rem;flex-wrap:wrap;
+  position:relative;z-index:2;
+}
+.cta-text h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  line-height:0.9;color:var(--bg);
+  margin-bottom:0.5rem;
+}
+.cta-text p{
+  font-size:1rem;color:rgba(0,0,0,0.55);
+  line-height:1.6;
+}
+.btn-dark{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.9rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--yellow);background:var(--bg);
+  padding:1.2rem 3rem;text-decoration:none;
+  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+  white-space:nowrap;
+  transition:all 0.2s;display:inline-block;
+}
+.btn-dark:hover{background:#1a1a1a;transform:translateY(-2px);}
+
+/* FOOTER */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:2rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.2rem;letter-spacing:0.08em;
+  color:var(--white);
+  display:flex;align-items:center;gap:0.4rem;
+}
+.footer-logo .bolt{color:var(--yellow);}
+.footer-note{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(240,237,232,0.2);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(25px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero{padding:6rem 1.5rem 3rem;}
+  .hero-inner{grid-template-columns:1fr;gap:2rem;}
+  .hero-panel{display:none;}
+  .services-section,.reviews-section{padding:4rem 1.5rem;}
+  .section-header{grid-template-columns:1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .why-section{padding:4rem 1.5rem;}
+  .why-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .big-number{display:none;}
+  .reviews-grid{grid-template-columns:1fr;}
+  .cta-section{padding:4rem 1.5rem;}
+  .cta-inner{flex-direction:column;align-items:flex-start;}
+  footer{padding:1.5rem;flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span class="bolt">⚡</span> KIM'S E&P</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:YOUR_PHONE" class="nav-cta">Free Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-text">E&P</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Licensed · Los Angeles · Since 2000</div>
+      <h1 class="hero-h1">
+        <div>YOUR</div>
+        <div class="line2">LOCAL</div>
+        <div class="line3">PROS.</div>
+      </h1>
+      <p class="hero-desc">Electrical repairs, panel upgrades, plumbing — fast, clean, and done right the first time. Serving Los Angeles 7 days a week.</p>
+      <div class="hero-btns">
+        <a href="tel:YOUR_PHONE" class="btn-yellow">⚡ Call for Free Quote</a>
+        <a href="#services" class="btn-ghost">See Services →</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="panel-title">Status · Available Now</div>
+      <div class="panel-stats">
+        <div class="panel-stat">
+          <div class="panel-stat-num">25+</div>
+          <div class="panel-stat-label">5-Star Reviews</div>
+        </div>
+        <div class="panel-stat">
+          <div class="panel-stat-num">7</div>
+          <div class="panel-stat-label">Days a Week</div>
+        </div>
+        <div class="panel-stat">
+          <div class="panel-stat-num">$0</div>
+          <div class="panel-stat-label">Free Estimates</div>
+        </div>
+        <div class="panel-stat">
+          <div class="panel-stat-num">LA</div>
+          <div class="panel-stat-label">Based Here</div>
+        </div>
+      </div>
+      <div class="panel-divider"></div>
+      <div class="panel-services">
+        <div class="panel-svc">Electrical Repairs & Panel Upgrades</div>
+        <div class="panel-svc">Emergency Response</div>
+        <div class="panel-svc">Plumbing Repairs & Drain Cleaning</div>
+        <div class="panel-svc">Water Heater Installation</div>
+        <div class="panel-svc">Residential & Commercial</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item accent">⚡ ELECTRICAL</span>
+    <span class="marquee-item">REPAIRS</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">PLUMBING</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">LOS ANGELES</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">LICENSED & INSURED</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">SAME DAY SERVICE</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">FREE ESTIMATES</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item accent">⚡ ELECTRICAL</span>
+    <span class="marquee-item">REPAIRS</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">PLUMBING</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">LOS ANGELES</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">LICENSED & INSURED</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">SAME DAY SERVICE</span>
+    <span class="marquee-item accent">—</span>
+    <span class="marquee-item">FREE ESTIMATES</span>
+    <span class="marquee-item accent">—</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-h2">OUR<br>SERVICES</h2>
+    </div>
+    <p class="section-sub">From a tripped breaker to a full repipe — we handle it. No job too small, no excuse to leave it unfinished.</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">⚡</div>
+      <div class="svc-name">Electrical Repairs</div>
+      <p class="svc-desc">Outlets, switches, wiring, circuit breakers. Fast diagnosis, clean fix, no guesswork.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">🔌</div>
+      <div class="svc-name">Panel Upgrades</div>
+      <p class="svc-desc">Old panel causing issues? We upgrade to modern standards safely and up to code.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">🚨</div>
+      <div class="svc-name">Emergency Response</div>
+      <p class="svc-desc">Power out? We respond fast, assess the problem, and restore safety the same day.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">🔧</div>
+      <div class="svc-name">Plumbing Repairs</div>
+      <p class="svc-desc">Leaks, clogs, broken pipes, running toilets. We fix it right so it stays fixed.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">🚿</div>
+      <div class="svc-name">Water Heater Service</div>
+      <p class="svc-desc">Tank or tankless — installation, repair, replacement. Hot water back fast.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">🏢</div>
+      <div class="svc-name">Commercial Work</div>
+      <p class="svc-desc">We serve homeowners and businesses across LA County. Licensed for both.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<div class="diag"></div>
+<section class="why-section" id="why">
+  <div class="why-inner">
+    <div>
+      <div class="section-tag">Why Kim's</div>
+      <h2 class="section-h2">HONEST.<br>FAST.<br>LOCAL.</h2>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div class="why-text">We pick up the phone and show up on time — no vague windows, no no-shows</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div class="why-text">You know the cost before work begins — no surprise charges at the end</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <div class="why-text">We clean up after ourselves — your home stays the way we found it</div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <div class="why-text">Licensed, insured, and based right here in Los Angeles</div>
+        </div>
+      </div>
+    </div>
+    <div class="why-right">
+      <div class="big-number">24</div>
+      <div class="hours-card" id="contact">
+        <div class="hours-title">Hours & Contact</div>
+        <table class="hours-table">
+          <tr><td>Mon – Fri</td><td>8:00 AM – 6:00 PM</td></tr>
+          <tr><td>Saturday</td><td>8:00 AM – 6:00 PM</td></tr>
+          <tr><td>Sunday</td><td>8:00 AM – 6:00 PM</td></tr>
+        </table>
+        <div class="phone-strip">
+          <div class="phone-strip-label">Call for Free Quote</div>
+          <div class="phone-strip-num">YOUR_PHONE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="section-tag">Client Reviews</div>
+  <h2 class="section-h2">WHAT LA<br>IS SAYING</h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Danny spent 30-40 minutes fixing the outlet and left the area spotless before leaving. Exactly what you want from a tech.</p>
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <div class="review-author">Verified Yelp Review</div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Spoke to Erick on the phone and he answered every question I had. Showed up on time, work was clean. Will be calling again.</p>
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <div class="review-author">Verified Yelp Review</div>
+    </div>
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <p class="review-text">Mena was friendly, courteous, professional and arrived right on time. One of the better experiences I've had with a contractor.</p>
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <div class="review-author">Verified Yelp Review</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>GET YOUR<br>FREE QUOTE</h2>
+      <p>Call us today. We respond fast and can usually schedule same or next day.</p>
+    </div>
+    <a href="tel:YOUR_PHONE" class="btn-dark">⚡ Call YOUR_PHONE</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span class="bolt">⚡</span> KIM'S ELECTRICAL & PLUMBING</div>
+  <div class="footer-note">Los Angeles, CA · Licensed & Insured · 7 Days a Week</div>
+  <div class="footer-note">© 2025 Kim's Electrical & Plumbing Services</div>
+</footer>
+
+</body>
+</html>
